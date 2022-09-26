@@ -3,6 +3,7 @@ from booking.booking import Booking
 from booking.handle_results import Results
 from booking.telegram_bot import Telegram_bot
 
+
 def check_prices(params):
     with Booking() as bot:
         bot.landing_page()
@@ -30,8 +31,15 @@ def check_prices(params):
         telegram_bot.send_results(results, params)
 
 
+# choosing locations and dates
+parameters =[{'location': 'Budapest', 'check_in': '2022-10-14', 'check_out': '2022-10-16', 'max_price': 120},
+             {'location': 'Krakow', 'check_in': '2022-10-14', 'check_out': '2022-10-16', 'max_price': 120},
+             {'location': 'Bologna', 'check_in': '2022-10-14', 'check_out': '2022-10-16', 'max_price': 120},
+             {'location': 'Thessaloniki', 'check_in': '2022-10-14', 'check_out': '2022-10-16', 'max_price': 120},
+             {'location': 'Zadar', 'check_in': '2022-10-14', 'check_out': '2022-10-16', 'max_price': 120}]
+
 # main loop
 while True:
-    parameters = {'location': 'Israel Dead Sea', 'check_in': '2022-11-16', 'check_out': '2022-11-17', 'max_price': 250}
-    check_prices(parameters)
+    for destination_params in parameters:
+        check_prices(destination_params)
     time.sleep(60*30)  #scrape every 30 minutes

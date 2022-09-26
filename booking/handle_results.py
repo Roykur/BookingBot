@@ -14,11 +14,13 @@ class Results:
         results = []
         results_table = self.driver.find_element(By.CSS_SELECTOR, 'div[class="d4924c9e74"]')
         results_sub_elements = results_table.find_elements(By.CSS_SELECTOR, 'div[data-testid="property-card"]')
-        print(len(results_sub_elements))  # to delete
         for element in results_sub_elements:
-            price_of_element = element.find_element(By.CSS_SELECTOR,
-                                                    'div[data-testid="price-and-discounted-price"] > span[class="fcab3ed991 bd73d13072"]'
-                                                    )
+            try:
+                price_of_element = element.find_element(By.CSS_SELECTOR, 'span[class="fcab3ed991 bd73d13072"]')
+            # sometimes price is presented differently
+            except:
+                price_of_element = element.find_element(By.CSS_SELECTOR, 'span[data-testid="price-and-discounted-price"]')
+                print('fetched price through exception')
             price = ''
             for c in price_of_element.get_attribute('innerHTML'):
                 if c.isdigit():
